@@ -14,14 +14,14 @@ Tested with ASUS RT-AX86U running Asuswrt-Merlin v386.1_2.
 ## Contents
 1. Router [SNMP config append file](./asus-config/snmpd.conf.add) to define SNMP Extend
 2. [Shell scripts](./asus-scripts/) for pulling the following metrics
-* Connection count
-* Active connection count
-* Admin web session - source IP of active/last session
-* Admin web session - timestamp (returns a value when someone is logged in)
-* Number of active SSH sessions
-* Temperature - CPU
-* Temperature - 2.4 GHz Wireless Module
-* Temperature - 5 GHz Wireless Module
+	* Connection count
+	* Active connection count
+	* Admin web session - source IP of active/last session
+	* Admin web session - timestamp (returns a value when someone is logged in)
+	* Number of active SSH sessions
+	* Temperature - CPU
+	* Temperature - 2.4 GHz Wireless Module
+	* Temperature - 5 GHz Wireless Module
 3. Grafana [dashboard config file](./grafana/router-asus.json) (uses [Flux](https://docs.influxdata.com/influxdb/v2.0/query-data/get-started/) to query InfluxDB)
 4. Telegraf [router SNMP config](./telegraf/snmp_asus.conf)
 ## Configuration notes
