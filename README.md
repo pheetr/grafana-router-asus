@@ -13,7 +13,7 @@ Tested with ASUS RT-AX86U running Asuswrt-Merlin v386.1_2.
 4. TIG stack deployed.
 ## Contents
 1. Router [SNMP config append file](./asus-config/snmpd.conf.add) to define SNMP Extend
-2. [Shell scripts](./asus-scripts/) for pulling the following metrics
+2. [Shell scripts](./asus-scripts/) for pulling the following metrics on the router:
 	* Connection count
 	* Active connection count
 	* Admin web session - source IP of active/last session
