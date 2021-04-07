@@ -26,3 +26,4 @@ Tested with ASUS RT-AX86U running Asuswrt-Merlin v386.1_2.
 4. Telegraf [router SNMP config](./telegraf/snmp_asus.conf)
 ## Configuration notes
 * Individual (per-metric) scripts are being used for SNMP Extend so as to avoid commands being run unnecessarily when the OIDs are being queried.
+* The Telegraf config file I've based my config on is sourced from [bretmlw](https://github.com/bretmlw/rt-n66u-snmp-telegraf-grafana). I've commented out everything that didn't return results for me, as well as things that I'm not planning on using near-term. I've also added comments to a number of OIDs from their respective MIBs for (hopefully) improved clarity.
