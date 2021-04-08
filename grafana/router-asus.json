@@ -154,7 +154,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
+        "w": 2,
         "x": 3,
         "y": 0
       },
@@ -246,7 +246,7 @@
       "gridPos": {
         "h": 3,
         "w": 2,
-        "x": 6,
+        "x": 5,
         "y": 0
       },
       "id": 13,
@@ -278,7 +278,7 @@
     },
     {
       "datasource": null,
-      "description": "Admin session active",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -286,19 +286,20 @@
           },
           "mappings": [
             {
-              "from": "",
+              "from": "1",
               "id": 1,
+              "text": "Active",
+              "to": "99999999999999",
+              "type": 2,
+              "value": ""
+            },
+            {
+              "from": "",
+              "id": 2,
               "text": "None",
               "to": "",
               "type": 1,
               "value": "0"
-            },
-            {
-              "from": "1",
-              "id": 2,
-              "text": "Active",
-              "to": "1000000000000",
-              "type": 2
             }
           ],
           "thresholds": {
@@ -320,11 +321,11 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
-        "x": 8,
+        "w": 2,
+        "x": 7,
         "y": 0
       },
-      "id": 14,
+      "id": 33,
       "interval": "1m",
       "options": {
         "colorMode": "background",
@@ -335,7 +336,7 @@
           "calcs": [
             "last"
           ],
-          "fields": "",
+          "fields": "/^web_time \\{agent_host=\"\", sysName=\"\"\\}$/",
           "values": false
         },
         "text": {},
@@ -360,7 +361,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"tig\")\r\n    |> range(start: -5m)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"web_time\"\r\n        )\r\n    |> drop(columns: [\"host\"])",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: -3m)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"web_time\"\r\n        )\r\n    |> drop(columns: [\"host\"])",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -417,7 +418,7 @@
       "gridPos": {
         "h": 3,
         "w": 4,
-        "x": 11,
+        "x": 9,
         "y": 0
       },
       "id": 15,
@@ -455,7 +456,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"tig\")\r\n    |> range(start: -5m)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"web_ip\"\r\n        )\r\n    |> drop(columns: [\"container_version\", \"engine_host\", \"host\", \"server_version\"])",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: -5m)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"web_ip\"\r\n        )\r\n    |> drop(columns: [\"host\"])",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -476,6 +477,110 @@
         }
       ],
       "title": "Web Admin Session Last IP",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "Admin session active",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "OK",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 2
+              },
+              {
+                "color": "red",
+                "value": 3
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 13,
+        "y": 0
+      },
+      "id": 31,
+      "interval": "1m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "7.5.2",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: -5m)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"internet_status\"\r\n        )\r\n    |> drop(columns: [\"host\"])",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Internet",
       "type": "stat"
     },
     {
@@ -1119,7 +1224,7 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4,
         "x": 0,
         "y": 9
@@ -1199,7 +1304,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 8,
         "x": 4,
         "y": 9
@@ -1407,7 +1512,7 @@
         ]
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 4,
         "x": 12,
         "y": 9
@@ -1469,7 +1574,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 4,
         "x": 16,
         "y": 9
@@ -1531,6 +1636,93 @@
         }
       ],
       "title": "WAN Downloaded Since Up",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 12
+      },
+      "id": 25,
+      "interval": "1m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/^ifHCOutOctets \\{agent_host=\"\", ifName=\"eth0\"\\}$/",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "7.5.2",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: -5m)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"ifHCOutOctets\" and\r\n        r.ifName == \"eth0\"\r\n        )\r\n    |> drop(columns: [\"host\"])",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "WAN Uploaded Since Up",
       "type": "stat"
     },
     {
@@ -1669,37 +1861,39 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "light-blue",
+                "color": "green",
                 "value": null
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 16,
-        "y": 13
+        "w": 3,
+        "x": 0,
+        "y": 15
       },
-      "id": 25,
+      "id": 14,
       "interval": "1m",
       "options": {
-        "colorMode": "background",
-        "graphMode": "none",
+        "colorMode": "value",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "last"
           ],
-          "fields": "/^ifHCOutOctets \\{agent_host=\"\", ifName=\"eth0\"\\}$/",
+          "fields": "/^processes_running $/",
           "values": false
         },
-        "text": {},
-        "textMode": "value"
+        "text": {
+          "valueSize": 45
+        },
+        "textMode": "auto"
       },
       "pluginVersion": "7.5.2",
       "targets": [
@@ -1720,7 +1914,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"tig\")\r\n    |> range(start: -5m)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"ifHCOutOctets\" and\r\n        r.ifName == \"eth0\"\r\n        )\r\n    |> drop(columns: [\"host\"])",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"processes_running\"\r\n        )\r\n    |> drop(columns: [\"host\", \"sysName\"])",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1740,7 +1934,7 @@
           "tags": []
         }
       ],
-      "title": "WAN Uploaded Since Up",
+      "title": "Processes Running",
       "type": "stat"
     },
     {
@@ -1807,10 +2001,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 5,
-        "w": 15,
-        "x": 0,
-        "y": 16
+        "h": 6,
+        "w": 9,
+        "x": 3,
+        "y": 15
       },
       "hiddenSeries": false,
       "id": 26,
@@ -1967,6 +2161,129 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
+          "max": 30,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 18
+              },
+              {
+                "color": "red",
+                "value": 25
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "wireless_clients_2_4_GHz {agent_host=\"\", sysName=\"\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "2.4GHz"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "wireless_clients_5_GHz {agent_host=\"\", sysName=\"\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "5GHz"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 3,
+        "x": 12,
+        "y": 15
+      },
+      "id": 32,
+      "interval": "1m",
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.2",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: -3m)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        (r._field == \"wireless_clients_2_4_GHz\" or r._field == \"wireless_clients_5_GHz\")       \r\n        )\r\n    |> drop(columns: [\"host\"])",
+          "refId": "CPU",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Wireless Clients Connected",
+      "type": "bargauge"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "custom": {
             "align": null,
             "displayMode": "auto",
@@ -1982,10 +2299,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 11,
         "w": 5,
         "x": 15,
-        "y": 16
+        "y": 15
       },
       "id": 19,
       "interval": "1m",
@@ -2067,6 +2384,101 @@
         }
       ],
       "type": "table"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 18
+      },
+      "id": 34,
+      "interval": "1m",
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/^partition_jffs_usage $/",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {
+          "valueSize": 45
+        }
+      },
+      "pluginVersion": "7.5.2",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: -3m)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"partition_jffs_usage\"\r\n        )\r\n    |> drop(columns: [\"host\", \"sysName\"])",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "JFFS Usage",
+      "type": "bargauge"
     },
     {
       "datasource": null,
@@ -2325,7 +2737,7 @@
       "fillGradient": 3,
       "gridPos": {
         "h": 5,
-        "w": 12,
+        "w": 9,
         "x": 3,
         "y": 21
       },
@@ -2447,12 +2859,12 @@
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Router",
   "uid": "jY_JZIlGz",
-  "version": 31
+  "version": 36
 }

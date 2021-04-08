@@ -6,3 +6,8 @@ extend webt /bin/ash /jffs/scripts/asus_snmp_webtime.sh
 extend webi /bin/ash /jffs/scripts/asus_snmp_webip.sh
 extend conc /bin/ash /jffs/scripts/asus_snmp_conncount.sh
 extend cona /bin/ash /jffs/scripts/asus_snmp_connactive.sh
+extend inet /bin/ash /jffs/scripts/asus_snmp_inetstat.sh
+extend jffs /bin/ash /jffs/scripts/asus_snmp_jffsusage.sh
+extend proc /bin/ash /jffs/scripts/asus_snmp_proccount.sh
+extend w2cl /bin/ash /jffs/scripts/asus_snmp_w2clients.sh
+extend w5cl /bin/ash /jffs/scripts/asus_snmp_w5clients.sh
