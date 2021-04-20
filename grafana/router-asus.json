@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 13,
+  "id": 26,
   "links": [],
   "panels": [
     {
@@ -67,7 +67,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -169,13 +169,13 @@
           "calcs": [
             "last"
           ],
-          "fields": "/^ssh_sessions \\{agent_host=\"\", sysName=\"\"\\}$/",
+          "fields": "",
           "values": false
         },
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -260,13 +260,13 @@
           "calcs": [
             "last"
           ],
-          "fields": "/^ssh_sessions \\{agent_host=\"\", sysName=\"\"\\}$/",
+          "fields": "",
           "values": false
         },
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "panelId": 6,
@@ -336,13 +336,13 @@
           "calcs": [
             "last"
           ],
-          "fields": "/^web_time \\{agent_host=\"\", sysName=\"\"\\}$/",
+          "fields": "",
           "values": false
         },
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -382,6 +382,15 @@
         }
       ],
       "title": "Web Session",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(web_time.*)",
+            "renamePattern": "web_time"
+          }
+        }
+      ],
       "type": "stat"
     },
     {
@@ -431,13 +440,13 @@
           "calcs": [
             "last"
           ],
-          "fields": "/^web_ip \\{agent_host=\"\", sysName=\"\"\\}$/",
+          "fields": "/^web_ip$/",
           "values": false
         },
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -477,6 +486,15 @@
         }
       ],
       "title": "Web Admin Session Last IP",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(web_ip.*)",
+            "renamePattern": "web_ip"
+          }
+        }
+      ],
       "type": "stat"
     },
     {
@@ -541,7 +559,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -625,7 +643,7 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "panelId": 16,
@@ -637,12 +655,18 @@
       "title": "Active connections",
       "transformations": [
         {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(connections_active.*)",
+            "renamePattern": "connections_active"
+          }
+        },
+        {
           "id": "filterFieldsByName",
           "options": {
             "include": {
               "names": [
-                "Time",
-                "connections_active {agent_host=\"\", sysName=\"\"}"
+                "connections_active"
               ]
             }
           }
@@ -667,7 +691,7 @@
         "content": "<center><img src=\"https://dlcdnwebimgs.asus.com/gain/55ce4cd4-b7f9-4bf6-854b-fdc567958f4c/\" style=\"width:78%\" /></center>\n         ",
         "mode": "html"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -761,16 +785,16 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
-          "panelId": 8,
+          "panelId": 35,
           "refId": "A"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CPU Load",
+      "title": "🧠 CPU Utilization",
       "type": "gauge"
     },
     {
@@ -779,36 +803,23 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "description": "",
+      "description": "The average, over the last minute, of the percentage of time that this processor was not idle.",
       "fieldConfig": {
         "defaults": {
           "unit": "percent"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "laLoadFloat {agent_host=\"\", laIndex=\"1\", laNames=\"Load-1\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "CPU Load"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "fill": 1,
       "fillGradient": 3,
       "gridPos": {
         "h": 6,
-        "w": 8,
+        "w": 6,
         "x": 4,
         "y": 3
       },
       "hiddenSeries": false,
-      "id": 8,
+      "id": 35,
       "interval": "1m",
       "legend": {
         "avg": true,
@@ -826,7 +837,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -853,7 +864,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"tig\")\r\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"laLoadFloat\" and\r\n        r.laNames == \"Load-1\"        \r\n        )\r\n    |> drop(columns: [\"host\"])\r\n    |> aggregateWindow(every: 5m, fn: mean)",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"hrProcessorLoad\"\r\n        )\r\n    |> drop(columns: [\"host\"])\r\n    |> aggregateWindow(every: v.windowPeriod, fn: mean)",
           "refId": "CPU",
           "resultFormat": "time_series",
           "select": [
@@ -877,12 +888,21 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "🧠 CPU Load",
+      "title": "🧠 CPU Utilization",
       "tooltip": {
         "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(hrProcessorLoad.*)",
+            "renamePattern": "CPU Utilization "
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -922,43 +942,157 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 3,
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 10,
+        "y": 3
+      },
+      "hiddenSeries": false,
+      "id": 8,
+      "interval": "1m",
+      "legend": {
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"laLoadFloat\" and\r\n        r.laNames == \"Load-1\"        \r\n        )\r\n    |> map(fn: (r) => ({ r with _value: r._value / 4.0 })) //calculate per CPU core value\r\n    |> drop(columns: [\"host\"])\r\n    |> aggregateWindow(every: v.windowPeriod, fn: mean)",
+          "refId": "CPU",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "🧠 System Load per CPU Core",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(laLoadFloat.*)",
+            "renamePattern": "System Load"
+          }
+        }
+      ],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:660",
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:661",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "unit": "none"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "connections_active {agent_host=\"\", sysName=\"\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Active"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "connections_total {agent_host=\"\", sysName=\"\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Total"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
-        "w": 8,
-        "x": 12,
+        "w": 5,
+        "x": 15,
         "y": 3
       },
       "hiddenSeries": false,
@@ -982,7 +1116,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1038,6 +1172,22 @@
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(connections_total.*)",
+            "renamePattern": "Total"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(connections_active.*)",
+            "renamePattern": "Active"
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -1123,7 +1273,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -1196,32 +1346,7 @@
           },
           "unit": "Bps"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCInOctets {agent_host=\"\", host=\"\", ifName=\"eth0\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Rx"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCOutOctets {agent_host=\"\", host=\"\", ifName=\"eth0\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Tx"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 6,
@@ -1244,7 +1369,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "panelId": 10,
@@ -1274,32 +1399,7 @@
         "defaults": {
           "unit": "Bps"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCInOctets {agent_host=\"\", ifName=\"eth0\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Rx"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCOutOctets {agent_host=\"\", ifName=\"eth0\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Tx"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
@@ -1330,7 +1430,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1423,6 +1523,22 @@
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(ifHCIn.*)",
+            "renamePattern": "Rx"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(ifHCOut.*)",
+            "renamePattern": "Tx"
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -1484,32 +1600,7 @@
           },
           "unit": "Bps"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCInOctets {agent_host=\"\", host=\"\", ifName=\"eth0\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Rx"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCOutOctets {agent_host=\"\", host=\"\", ifName=\"eth0\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Tx"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 6,
@@ -1531,7 +1622,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "panelId": 10,
@@ -1590,13 +1681,13 @@
           "calcs": [
             "last"
           ],
-          "fields": "/^ifHCInOctets \\{agent_host=\"\", ifName=\"eth0\"\\}$/",
+          "fields": "",
           "values": false
         },
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -1677,13 +1768,13 @@
           "calcs": [
             "last"
           ],
-          "fields": "/^ifHCOutOctets \\{agent_host=\"\", ifName=\"eth0\"\\}$/",
+          "fields": "",
           "values": false
         },
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -1755,32 +1846,7 @@
           },
           "unit": "celsius"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "temp_2_4_GHz {agent_host=\"\", sysName=\"\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "2.4GHz"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "temp_5_GHz {agent_host=\"\", sysName=\"\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "5GHz"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 6,
@@ -1803,7 +1869,7 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -1846,6 +1912,22 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Wireless Module Temperature",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(temp_2.*)",
+            "renamePattern": "2.4 GHz"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(temp_5.*)",
+            "renamePattern": "5 GHz"
+          }
+        }
+      ],
       "type": "bargauge"
     },
     {
@@ -1887,7 +1969,7 @@
           "calcs": [
             "last"
           ],
-          "fields": "/^processes_running $/",
+          "fields": "",
           "values": false
         },
         "text": {
@@ -1895,7 +1977,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -1914,7 +1996,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"tig\")\r\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"processes_running\"\r\n        )\r\n    |> drop(columns: [\"host\", \"sysName\"])",
+          "query": "from(bucket: \"tig\")\r\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n    |> filter(fn: (r) =>\r\n        r._measurement == \"router_asus\" and\r\n        r._field == \"processes_running\"\r\n        )\r\n    |> drop(columns: [\"host\", \"sysName\"])\r\n    |> aggregateWindow(every: v.windowPeriod, fn: mean)",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1947,56 +2029,7 @@
         "defaults": {
           "unit": "Bps"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCInOctets eth6"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Rx 2.4GHz"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCOutOctets eth6"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Tx 2.4GHz"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCInOctets eth7"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Rx 5GHz"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCOutOctets eth7"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Tx 5GHz"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
@@ -2027,7 +2060,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2120,6 +2153,36 @@
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(ifHCInOctets eth6.*)",
+            "renamePattern": "Rx 2.4 GHz"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(ifHCOutOctets eth6.*)",
+            "renamePattern": "Tx 2.4 GHz"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(ifHCInOctets eth7.*)",
+            "renamePattern": "Rx 5 GHz"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(ifHCOutOctets eth7.*)",
+            "renamePattern": "Tx 5 GHz"
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -2183,32 +2246,7 @@
           },
           "unit": "none"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "wireless_clients_2_4_GHz {agent_host=\"\", sysName=\"\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "2.4GHz"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "wireless_clients_5_GHz {agent_host=\"\", sysName=\"\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "5GHz"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 11,
@@ -2231,7 +2269,7 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -2274,6 +2312,22 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Wireless Clients Connected",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(wireless_clients_2.*)",
+            "renamePattern": "2.4 GHz"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(wireless_clients_5.*)",
+            "renamePattern": "5 GHz"
+          }
+        }
+      ],
       "type": "bargauge"
     },
     {
@@ -2316,7 +2370,7 @@
           }
         ]
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -2430,7 +2484,7 @@
           "calcs": [
             "last"
           ],
-          "fields": "/^partition_jffs_usage $/",
+          "fields": "",
           "values": false
         },
         "showUnfilled": true,
@@ -2438,7 +2492,7 @@
           "valueSize": 45
         }
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -2578,7 +2632,7 @@
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "groupBy": [
@@ -2695,7 +2749,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "targets": [
         {
           "panelId": 22,
@@ -2718,20 +2772,7 @@
         "defaults": {
           "unit": "deckbytes"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "memTotalFree {agent_host=\"\", sysName=\"\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Free Memory"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "fill": 1,
       "fillGradient": 3,
@@ -2760,7 +2801,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2817,6 +2858,15 @@
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "(memTotalF.*)",
+            "renamePattern": "Free Memory"
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -2854,7 +2904,9 @@
   "refresh": "30s",
   "schemaVersion": 27,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "router"
+  ],
   "templating": {
     "list": []
   },
@@ -2866,5 +2918,5 @@
   "timezone": "",
   "title": "Router",
   "uid": "jY_JZIlGz",
-  "version": 36
+  "version": 17
 }

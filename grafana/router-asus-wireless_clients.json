@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 38,
-  "iteration": 1618843230203,
+  "iteration": 1618922417187,
   "links": [
     {
       "asDropdown": true,
@@ -673,45 +673,12 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "blue",
-                "value": 8388608
-              },
-              {
-                "color": "purple",
-                "value": 10485770
               }
             ]
           },
           "unit": "Bps"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCInOctets {agent_host=\"\", host=\"\", ifName=\"eth0\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Rx"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "ifHCOutOctets {agent_host=\"\", host=\"\", ifName=\"eth0\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Tx"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -953,14 +920,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "blue",
-                "value": 1572864
-              },
-              {
-                "color": "purple",
-                "value": 2097172
               }
             ]
           },
@@ -1997,8 +1956,8 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "text": "",
-          "value": ""
+          "text": "*",
+          "value": "*"
         },
         "datasource": null,
         "definition": "import \"influxdata/influxdb/v1\"\r\nv1.tagValues(\r\n    bucket: \"test\",\r\n    tag: \"hostname\",\r\n    predicate: (r) => true,\r\n    start: -1d\r\n)",
@@ -2042,7 +2001,12 @@
             "selected": true,
             "text": "",
             "value": ""
-          }
+          },
+          {
+            "selected": false,
+            "text": "",
+            "value": ""
+          }          
         ],
         "query": "from(bucket: \"test\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"router_asus_wificlients\")\n  |> filter(fn: (r) => r[\"hostname\"] == \"${hostname}\")\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> distinct(column: \"ip\")\n  |> keep(columns: [\"_value\"])\n  |> yield(name: \"last\")",
         "refresh": 0,
@@ -2065,5 +2029,5 @@
   "timezone": "",
   "title": "Router - Wireless Clients",
   "uid": "jY_JmglGz",
-  "version": 17
+  "version": 19
 }
